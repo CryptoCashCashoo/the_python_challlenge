@@ -1,0 +1,6 @@
+conda
+*egg-info
+*.tox
+*.coverage
+*.pyc
+pycache

@@ -1,0 +1,35 @@
+[MASTER]
+
+# Pylint parsing is deeply recursive, increased the max recursion size to avoid an stack overflow
+# Related: https://stackoverflow.com/questions/36496192/pylint-infinite-recursion-in-astriod-package
+# init-hook='import sys; sys.setrecursionlimit(2 * sys.getrecursionlimit())'
+
+# Disable all W (Warnings), C (Conventions), R (Refactor) annotations
+# disable=W,C,R
+
+# Enable particular annotations. 
+# To force-ignore a particular annotation, set a "# pylint: disable=CODE" at the end of a line
+# W0611 - Unused imports
+# W0404 - Reimported libs
+# enable=W0611,W0404
+
+
+disable=
+    R0801, # Similar lines in 2 files
+    C0116, # Missing function or method docstring (missing-function-docstring)
+    C0301, # Line too long (108/100) (line-too-long)
+    C0303, # Trailing whitespace (trailing-whitespace)
+    C0304, # Final newline missing (missing-final-newline)
+    C0305, # Trailing newlines (trailing-newlines)
+    R0903, # Too few public methods
+    R0913, # Too many arguments
+    R0902, # Too many instance attributes (11/7) (too-many-instance-attributes)
+    W1401, # Anomalous backslash in string: '\*'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+    R0914, # Too many local variables (20/15) (too-many-locals)
+    
+[BASIC]
+
+    # Good variable names which should always be accepted, separated by a comma.
+    good-names=a,b, i, j, k, ex, df, l, l1, l2, l3, x, y , x1 , x2 , y1, y2, h, e, el, n , dt, dx, dy, w, z
+
+

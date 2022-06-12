@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Pylint
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Try get cached python venv
+        uses: actions/cache@v2
+        id: cache-venv # name for referring later
+        with:
+          path: ./.venv/ # what we cache: the virtualenv
+          # The cache key depends on requirements.txt
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/installation/requirements.txt') }}
+
+      - name: Create python venv if not cached or /installation/requirements.txt changed
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+        run: |
+          python -m venv ./.venv
+          . ./.venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r ./installation/requirements.txt
+
+      - name: Run pylint
+        run: |
+          . ./.venv/bin/activate
+          pylint src tests

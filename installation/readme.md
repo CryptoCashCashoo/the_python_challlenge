@@ -1,0 +1,3 @@
+Install via:
+
+`make install`
